@@ -1,4 +1,4 @@
-import { test } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { LoginPage } from "../Pages/LoginPage";
 import dotenv from "dotenv";
 
@@ -14,9 +14,10 @@ test.beforeEach(async ({ page }) => {
   await loginpage.go();
 });
 
-test.describe("Descrição da suíte de testes", async () => {
-  test("Descrição do test case", async () => {
-    loginpage.go;
+test.describe("Testes de Login Válido", async () => {
+  test("Login com usuário e senha corretos", async ({ page }) => {
     await loginpage.fillUserAndPass(user, pass);
+
+    await expect(page).toHaveURL(/.*inventory/);
   });
 });
