@@ -16,8 +16,8 @@ test.beforeEach(async ({ page }) => {
   await loginpage.go();
 });
 
-test.describe("Testes de Login Válido", async () => {
-  test("Login com usuário e senha corretos", async ({ page }) => {
+test.describe("Testes de Login", async () => {
+  test("Login com usuário e senha validos", async ({ page }) => {
     await loginpage.fillUserAndPass(userValid, passValid);
 
     await expect(page).toHaveURL(/.*inventory/);
