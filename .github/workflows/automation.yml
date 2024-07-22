@@ -24,6 +24,7 @@ jobs:
 
   test:
     name: Pipeline de testes
+    if: ${{ success() }}
     needs: sonarcloud
     timeout-minutes: 60
     runs-on: ubuntu-latest
