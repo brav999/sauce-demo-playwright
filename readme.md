@@ -8,7 +8,7 @@
 
 <img src="https://testingwithrenata.com/wp-content/uploads/2023/03/playwright-logo.png" alt="Logo playwright">
 
-> Este é um projeto de automação visando estudo, usando playwright com typescript. A finalidade deste repositório é realizar estudos, testes com ferramentas e aprimorar o conhecimento em automação.
+> Este é um projeto de automação visando estudo, usando playwright com typescript.
 
 ## 💻 Pré-requisitos
 
