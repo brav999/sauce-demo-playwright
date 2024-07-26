@@ -1,4 +1,4 @@
-import { Page, expect } from "@playwright/test";
+import { Page, expect } from '@playwright/test';
 
 export class Inventory {
   readonly page: Page;
@@ -9,7 +9,7 @@ export class Inventory {
 
   async addToCart(product: string) {
     await this.page.getByText(product).click();
-    await this.page.waitForLoadState("networkidle");
+    await this.page.waitForLoadState('networkidle');
     await this.page.locator('[data-test="add-to-cart"]').click();
   }
 

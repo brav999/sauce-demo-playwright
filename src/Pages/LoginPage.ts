@@ -1,4 +1,4 @@
-import { Page } from "@playwright/test";
+import { Page } from '@playwright/test';
 
 export class LoginPage {
   readonly page: Page;
@@ -8,13 +8,13 @@ export class LoginPage {
   }
 
   async go() {
-    await this.page.goto("https://www.saucedemo.com");
+    await this.page.goto('https://www.saucedemo.com');
   }
 
   async fillUserAndPass(username: string, password: string) {
     await this.page.locator('[data-test="username"]').fill(username);
     await this.page.locator('[data-test="password"]').fill(password);
     await this.page.locator('[data-test="login-button"]').click();
-    await this.page.waitForLoadState("networkidle");
+    await this.page.waitForLoadState('networkidle');
   }
 }
