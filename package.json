@@ -6,7 +6,8 @@
   "scripts": {
     "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx}'",
     "format:check": "prettier --check 'src/**/*.{ts,tsx,js,jsx}'",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test": "npx playwright test"
   },
   "keywords": [],
   "author": "",
