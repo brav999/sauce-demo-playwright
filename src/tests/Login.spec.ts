@@ -1,8 +1,5 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 import { LoginPage } from '../Pages/LoginPage';
-import dotenv from 'dotenv';
-
-dotenv.config();
 
 const userValid = process.env.USERVALID ? process.env.USERVALID : '';
 const userInvalid = process.env.USERINVALID ? process.env.USERINVALID : '';
