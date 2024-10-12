@@ -7,14 +7,16 @@
     "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx}'",
     "format:check": "prettier --check 'src/**/*.{ts,tsx,js,jsx}'",
     "prepare": "husky",
-    "test": "npx playwright test"
+    "test": "npx playwright test",
+    "allure-serve": "allure serve allure-results"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@playwright/test": "^1.48.0",
     "@types/node": "^22.7.4",
-    "@playwright/test": "^1.47.2",
+    "allure-playwright": "^3.0.4",
     "husky": "^9.1.6",
     "prettier": "^3.3.3"
   },
