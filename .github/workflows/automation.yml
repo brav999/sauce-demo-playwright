@@ -61,13 +61,16 @@ jobs:
           retention-days: 30
 
   notification:
-    if: ${{ failure() }}
     name: CINotify Email
     needs: test
-    uses: cinotify/github-action@v1.6.0
-    with:
-      to: 'br.avila.l@gmail.com'
-      subject: 'Falha nos testes'
-      body: '<em>Falha na execução dos testes.</em>'
-      type: 'text/html'
-      attachment: 'artifacts.zip'
+    if: ${{ failure() }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Send Notification
+      uses: cinotify/github-action@v1.6.0
+      with:
+        to: 'br.avila.l@gmail.com'
+        subject: 'Falha nos testes'
+        body: '<em>Falha na execução dos testes.</em>'
+        type: 'text/html'
+        attachment: 'artifacts.zip'
