@@ -56,3 +56,15 @@ jobs:
           name: allure-report
           path: allure-results/
           retention-days: 30
+
+  notification:
+    if: ${{ failure() }}
+    name: Notification
+    needs: test
+    uses: cinotify/github-action@main
+    with:
+      to: 'br.avila.l@gmail.com'
+      subject: 'Falha nos testes'
+      body: '<em>Falha na execução dos testes.</em>'
+      type: 'text/html'
+      attachment: 'artifacts.zip'
