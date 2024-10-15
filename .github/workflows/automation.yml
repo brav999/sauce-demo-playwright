@@ -73,4 +73,3 @@ jobs:
         subject: 'Falha nos testes'
         body: '<em>Falha na execução dos testes.</em>'
         type: 'text/html'
-        attachment: 'artifacts.zip'
