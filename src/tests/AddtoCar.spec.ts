@@ -11,7 +11,7 @@ let inventory: Inventory;
 
 const logMetrics = (data: any) => {
   fs.appendFileSync('metrics.json', JSON.stringify(data) + '\n');
-}
+};
 
 test.beforeEach(async ({ page }) => {
   loginpage = new LoginPage(page);

@@ -11,7 +11,7 @@ let loginpage: LoginPage;
 
 const logMetrics = (data: any) => {
   fs.appendFileSync('metrics.json', JSON.stringify(data) + '\n');
-}
+};
 
 test.beforeEach(async ({ page }) => {
   loginpage = new LoginPage(page);
@@ -50,5 +50,4 @@ test.describe('Testes de Login', async () => {
     const duration = Date.now() - startTimer;
     logMetrics({ testName: 'Login com senha inválida', duration });
   });
-
 });
