@@ -62,9 +62,9 @@ jobs:
 
   notification:
     if: ${{ failure() }}
-    name: Notification
+    name: CINotify Email
     needs: test
-    uses: cinotify/github-action@main
+    uses: cinotify/github-action@v1.6.0
     with:
       to: 'br.avila.l@gmail.com'
       subject: 'Falha nos testes'
