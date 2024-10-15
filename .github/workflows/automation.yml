@@ -70,6 +70,20 @@ jobs:
       uses: cinotify/github-action@v1.6.0
       with:
         to: 'br.avila.l@gmail.com'
-        subject: 'Falha nos testes'
-        body: '<em>Falha na execução dos testes.</em>'
+        subject: 'Falha nos testes - Workflow: ${{ github.workflow }}'
+        body: |
+          <html>
+            <body>
+              <h2>Falha na execução dos testes</h2>
+              <p><strong>Workflow:</strong> ${{ github.workflow }}</p>
+              <p><strong>Job:</strong> ${{ github.job }}</p>
+              <p><strong>Branch:</strong> ${{ github.ref_name }}</p>
+              <p><strong>Commit:</strong> ${{ github.sha }}</p>
+              <p><strong>Autor do commit:</strong> ${{ github.actor }}</p>
+              <p><strong>Mensagem do commit:</strong> ${{ github.event.head_commit.message }}</p>
+              <p>Você pode visualizar os detalhes do workflow no seguinte link:</p>
+              <p><a href="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}">Clique aqui para ver os logs completos</a></p>
+              <p><em>Este e-mail contém o relatório da falha nos testes e os artefatos anexados.</em></p>
+           </body>
+          </html>
         type: 'text/html'
