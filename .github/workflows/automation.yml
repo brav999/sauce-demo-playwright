@@ -49,41 +49,57 @@ jobs:
       - name: Install Allure
         run: npm install -g allure-commandline
 
-      - name: Run Playwright tests
-        run: npx playwright test
-
-      - name: Upload Playwright report
-        uses: actions/upload-artifact@v4
+      - name: Download Allure history
         if: always()
-        with:
-          name: allure-report
-          path: allure-results/
-          retention-days: 30
+        continue-on-error: true
+        run: |
+        REPOSITORY=${{ github.repository }}
+        REPOSITORY_OWNER=${{ github.repository_owner }}
+        REPOSITORY_NAME=${REPOSITORY#$REPOSITORY_OWNER/}
+        
+        wget --recursive --no-parent --convert-links --page-requisites -P history \
+        "https://$REPOSITORY_OWNER.github.io/$REPOSITORY_NAME/history"
 
-  notification:
-    name: CINotify Email
-    needs: test
-    if: ${{ failure() }}
-    runs-on: ubuntu-latest
-    steps:
-    - name: Send Notification
-      uses: cinotify/github-action@v1.6.0
-      with:
-        to: 'br.avila.l@gmail.com'
-        subject: 'Falha nos testes - Workflow: ${{ github.workflow }}'
-        body: |
-          <html>
-            <body>
-              <h2>Falha na execução dos testes</h2>
-              <p><strong>Workflow:</strong> ${{ github.workflow }}</p>
-              <p><strong>Job:</strong> ${{ github.job }}</p>
-              <p><strong>Branch:</strong> ${{ github.ref_name }}</p>
-              <p><strong>Commit:</strong> ${{ github.sha }}</p>
-              <p><strong>Autor do commit:</strong> ${{ github.actor }}</p>
-              <p><strong>Mensagem do commit:</strong> ${{ github.event.head_commit.message }}</p>
-              <p>Você pode visualizar os detalhes do workflow no seguinte link:</p>
-              <p><a href="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}">Clique aqui para ver os logs completos</a></p>
-              <p><em>Este e-mail contém o relatório da falha nos testes e os artefatos anexados.</em></p>
-           </body>
-          </html>
-        type: 'text/html'
+    # Cria diretório para histórico se não existir
+      - name: Create Allure history directory
+        if: always()
+        run: |
+        mkdir -p allure-results/history
+        mkdir -p allure-report/history
+
+    # Copia histórico anterior se existir
+      - name: Copy Allure history
+        if: always()
+        continue-on-error: true
+        run: |
+        cp -r history/*/history/* allure-results/history/ || true
+
+      - name: Run Playwright tests
+        run: npm run test
+        env:
+        PLAYWRIGHT_HTML_REPORT: playwright-report
+        ALLURE_RESULTS_DIR: allure-results
+
+    # Gera relatório com histórico
+      - name: Generate Allure Report
+        if: always()
+        run: |
+        allure generate allure-results -o allure-report --clean
+
+    # Cria diretório com data para histórico
+      - name: Create report directory with date
+        if: always()
+        run: |
+        DATE_WITH_TIME=$(date "+%Y%m%d_%H%M%S")
+        mkdir -p report_history/$DATE_WITH_TIME
+        cp -r allure-report/* report_history/$DATE_WITH_TIME/
+        
+    # Deploy para GitHub Pages mantendo histórico
+      - name: Deploy report to Github Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+        github_token: ${{ secrets.TOKEN_GITHUB }}
+        publish_branch: gh-pages
+        publish_dir: ./report_history
+        keep_files: true
