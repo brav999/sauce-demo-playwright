@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Allure Report History</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        li:hover {
+            background-color: #e9ecef;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Allure Report History</h1>
+        <div id="reportList">
+            <!-- Lista será preenchida via JavaScript -->
+        </div>
+    </div>
+    <script>
+        async function loadReports() {
+            const response = await fetch('.');
+            const text = await response.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(text, 'text/html');
+            const links = Array.from(doc.querySelectorAll('a'))
+                .filter(a => a.href.match(/\d{8}_\d{6}/))
+                .sort((a, b) => b.href.localeCompare(a.href));
+
+            const reportList = document.getElementById('reportList');
+            const ul = document.createElement('ul');
+            
+            links.forEach(link => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                const dateStr = link.href.match(/(\d{8})_(\d{6})/)[0];
+                const formattedDate = `${dateStr.slice(0,4)}-${dateStr.slice(4,6)}-${dateStr.slice(6,8)} ${dateStr.slice(9,11)}:${dateStr.slice(11,13)}:${dateStr.slice(13,15)}`;
+                a.href = `${dateStr}/index.html`;
+                a.textContent = `Report from ${formattedDate}`;
+                li.appendChild(a);
+                ul.appendChild(li);
+            });
+            
+            reportList.appendChild(ul);
+        }
+
+        loadReports();
+    </script>
+</body>
+</html>
