@@ -53,46 +53,46 @@ jobs:
         if: always()
         continue-on-error: true
         run: |
-        REPOSITORY=${{ github.repository }}
-        REPOSITORY_OWNER=${{ github.repository_owner }}
-        REPOSITORY_NAME=${REPOSITORY#$REPOSITORY_OWNER/}
+          REPOSITORY=${{ github.repository }}
+          REPOSITORY_OWNER=${{ github.repository_owner }}
+          REPOSITORY_NAME=${REPOSITORY#$REPOSITORY_OWNER/}
         
-        wget --recursive --no-parent --convert-links --page-requisites -P history \
-        "https://$REPOSITORY_OWNER.github.io/$REPOSITORY_NAME/history"
+          wget --recursive --no-parent --convert-links --page-requisites -P history \
+          "https://$REPOSITORY_OWNER.github.io/$REPOSITORY_NAME/history"
 
     # Cria diretório para histórico se não existir
       - name: Create Allure history directory
         if: always()
         run: |
-        mkdir -p allure-results/history
-        mkdir -p allure-report/history
+          mkdir -p allure-results/history
+          mkdir -p allure-report/history
 
     # Copia histórico anterior se existir
       - name: Copy Allure history
         if: always()
         continue-on-error: true
         run: |
-        cp -r history/*/history/* allure-results/history/ || true
+          cp -r history/*/history/* allure-results/history/ || true
 
       - name: Run Playwright tests
         run: npm run test
         env:
-        PLAYWRIGHT_HTML_REPORT: playwright-report
-        ALLURE_RESULTS_DIR: allure-results
+          PLAYWRIGHT_HTML_REPORT: playwright-report
+          ALLURE_RESULTS_DIR: allure-results
 
     # Gera relatório com histórico
       - name: Generate Allure Report
         if: always()
         run: |
-        allure generate allure-results -o allure-report --clean
+          allure generate allure-results -o allure-report --clean
 
     # Cria diretório com data para histórico
       - name: Create report directory with date
         if: always()
         run: |
-        DATE_WITH_TIME=$(date "+%Y%m%d_%H%M%S")
-        mkdir -p report_history/$DATE_WITH_TIME
-        cp -r allure-report/* report_history/$DATE_WITH_TIME/
+          DATE_WITH_TIME=$(date "+%Y%m%d_%H%M%S")
+          mkdir -p report_history/$DATE_WITH_TIME
+          cp -r allure-report/* report_history/$DATE_WITH_TIME/
         
     # Deploy para GitHub Pages mantendo histórico
       - name: Deploy report to Github Pages
