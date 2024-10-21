@@ -99,7 +99,7 @@ jobs:
         if: always()
         uses: peaceiris/actions-gh-pages@v3
         with:
-        github_token: ${{ secrets.TOKEN_GITHUB }}
-        publish_branch: gh-pages
-        publish_dir: ./report_history
-        keep_files: true
+          github_token: ${{ secrets.TOKEN_GITHUB }}
+          publish_branch: gh-pages
+          publish_dir: ./report_history
+          keep_files: true
