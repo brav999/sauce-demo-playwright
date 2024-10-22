@@ -1,0 +1,5 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","9228","Login com usuário e senha validos","chromium","Tue Oct 22 00:09:34 UTC 2024","failed","Tue Oct 22 00:09:43 UTC 2024","Testes de Login","Login.spec.ts","",""
+"","4168","Login com senha inválida","chromium","Tue Oct 22 00:09:48 UTC 2024","passed","Tue Oct 22 00:09:52 UTC 2024","Testes de Login","Login.spec.ts","",""
+"","30079","Adicionar item ao carrinho","chromium","Tue Oct 22 00:10:15 UTC 2024","broken","Tue Oct 22 00:10:45 UTC 2024","Adicionando itens ao carrinho","AddtoCar.spec.ts","",""
+"","4254","Login com usuário incorreto","chromium","Tue Oct 22 00:09:44 UTC 2024","passed","Tue Oct 22 00:09:48 UTC 2024","Testes de Login","Login.spec.ts","",""
