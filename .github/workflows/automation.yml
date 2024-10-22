@@ -49,56 +49,7 @@ jobs:
       - name: Install Allure
         run: npm install -g allure-commandline
 
-        # Cria diretório para histórico se não existir
-      - name: Create Allure history directory
-        if: always()
-        run: |
-          mkdir -p allure-results/history
-          mkdir -p allure-report/history
-
-      - name: Download Allure history
-        if: always()
-        continue-on-error: true
-        run: |
-          REPOSITORY=${{ github.repository }}
-          REPOSITORY_OWNER=${{ github.repository_owner }}
-          REPOSITORY_NAME=${REPOSITORY#$REPOSITORY_OWNER/}
-        
-          wget --recursive --no-parent --convert-links --page-requisites -P history \
-          "https://$REPOSITORY_OWNER.github.io/$REPOSITORY_NAME/history"
-
-    # Copia histórico anterior se existir
-      - name: Copy Allure history
-        if: always()
-        continue-on-error: true
-        run: |
-          cp -r history/*/history/* allure-results/history/ || true
-
-      - name: Run Playwright tests
-        run: npm run test
-        env:
-          PLAYWRIGHT_HTML_REPORT: playwright-report
-          ALLURE_RESULTS_DIR: allure-results
-
-    # Gera relatório com histórico
-      - name: Generate Allure Report
-        if: always()
-        run: |
-          allure generate allure-results -o allure-report --clean
-
-    # Cria diretório com data para histórico
-      - name: Create report directory with date
-        if: always()
-        run: |
-          DATE_WITH_TIME=$(date "+%Y%m%d_%H%M%S")
-          mkdir -p report_history/$DATE_WITH_TIME
-          cp -r allure-report/* report_history/$DATE_WITH_TIME/
-        
-    # Deploy para GitHub Pages mantendo histórico
-      - name: Deploy report to Github Pages
-        if: always()
-        uses: Cecilapp/GitHub-Pages-deploy@v3
-        env:
-          github_token: ${{ secrets.TOKEN_GITHUB }}
-        with:  
-          email: br.avila.l@gmail.com
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results
