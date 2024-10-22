@@ -97,9 +97,8 @@ jobs:
     # Deploy para GitHub Pages mantendo histórico
       - name: Deploy report to Github Pages
         if: always()
-        uses: peaceiris/actions-gh-pages@v3
-        with:
+        uses: Cecilapp/GitHub-Pages-deploy@v3
+        env:
           github_token: ${{ secrets.TOKEN_GITHUB }}
-          publish_branch: gh-pages
-          publish_dir: ./report_history
-          keep_files: true
+        with:  
+          email: br.avila.l@gmail.com
