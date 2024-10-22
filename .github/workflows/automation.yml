@@ -53,8 +53,8 @@ jobs:
       - name: Create Allure history directory
         if: always()
         run: |
-        mkdir -p allure-results/history
-        mkdir -p allure-report/history
+          mkdir -p allure-results/history
+          mkdir -p allure-report/history
 
       - name: Download Allure history
         if: always()
