@@ -49,6 +49,13 @@ jobs:
       - name: Install Allure
         run: npm install -g allure-commandline
 
+        # Cria diretório para histórico se não existir
+      - name: Create Allure history directory
+        if: always()
+        run: |
+        mkdir -p allure-results/history
+        mkdir -p allure-report/history
+
       - name: Download Allure history
         if: always()
         continue-on-error: true
@@ -59,13 +66,6 @@ jobs:
         
           wget --recursive --no-parent --convert-links --page-requisites -P history \
           "https://$REPOSITORY_OWNER.github.io/$REPOSITORY_NAME/history"
-
-    # Cria diretório para histórico se não existir
-      - name: Create Allure history directory
-        if: always()
-        run: |
-          mkdir -p allure-results/history
-          mkdir -p allure-report/history
 
     # Copia histórico anterior se existir
       - name: Copy Allure history
