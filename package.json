@@ -17,7 +17,7 @@
     "@playwright/test": "^1.48.1",
     "@types/node": "^22.7.5",
     "allure-js-commons": "^3.0.5",
-    "allure-playwright": "^3.0.5",
+    "allure-playwright": "^3.0.6",
     "husky": "^9.1.6",
     "prettier": "^3.3.3"
   },
