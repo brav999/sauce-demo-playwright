@@ -14,12 +14,12 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@playwright/test": "^1.48.1",
     "@types/node": "^22.10.7",
-    "allure-js-commons": "^3.0.5",
+    "@playwright/test": "^1.49.1",
+    "allure-js-commons": "^3.0.9",
     "allure-playwright": "^3.0.5",
-    "husky": "^9.1.6",
-    "prettier": "^3.3.3"
+    "prettier": "^3.4.2"
+    "husky": "^9.1.7",
   },
   "dependencies": {
     "dotenv": "^16.4.5"
