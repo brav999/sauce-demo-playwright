@@ -14,14 +14,14 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^22.10.7",
-    "@playwright/test": "^1.49.1",
-    "allure-js-commons": "^3.0.9",
-    "allure-playwright": "^3.0.5",
-    "prettier": "^3.4.2",
-    "husky": "^9.1.7"
+    "@playwright/test": "^1.51.1",
+    "@types/node": "^22.14.0",
+    "allure-js-commons": "^3.2.1",
+    "allure-playwright": "^3.2.1",
+    "husky": "^9.1.7",
+    "prettier": "^3.5.3"
   },
   "dependencies": {
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.7"
   }
 }
