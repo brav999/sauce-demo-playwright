@@ -18,8 +18,8 @@
     "@playwright/test": "^1.49.1",
     "allure-js-commons": "^3.0.9",
     "allure-playwright": "^3.0.5",
-    "prettier": "^3.4.2"
-    "husky": "^9.1.7",
+    "prettier": "^3.4.2",
+    "husky": "^9.1.7"
   },
   "dependencies": {
     "dotenv": "^16.4.5"
