@@ -1,6 +1,5 @@
 import { expect, test } from '@playwright/test';
 import { LoginPage } from '../Pages/LoginPage';
-import fs from 'fs';
 
 const userValid = process.env.USERVALID ? process.env.USERVALID : '';
 const userInvalid = process.env.USERINVALID ? process.env.USERINVALID : '';
