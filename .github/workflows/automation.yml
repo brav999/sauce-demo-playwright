@@ -38,19 +38,26 @@ jobs:
       - name: Run tests
         run: npx playwright test
 
-      - name: Generate Allure Report
-        run: allure generate --clean ./allure-results -o ./allure-report
-
-      - name: Generate and Publish Allure Report
-        uses: Valiantsin2021/allure-shard-results-publish@1.0.5
+      - name: Load test report history
+        uses: actions/checkout@v3
+        if: always()
+        continue-on-error: true
         with:
-          github-token: ${{ secrets.TOKEN_GITHUB }}
-          results-pattern: 'allure-results-*'
-          results-directory: 'combined-allure-results'
-          report-directory: 'allure-report'
-          history-directory: 'allure-history'
-          gh-pages: 'gh-pages'
-          gh-pages-branch: 'gh-pages'
-          retention-days: '10'
-          publish-to-pages: 'true'
-          fail-on-empty-results: 'false'
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Build test report
+        uses: simple-elf/allure-report-action@v1.7
+        if: always()
+        with:
+          gh_pages: gh-pages
+          allure_history: allure-history
+          allure_results: build/allure-results
+
+      - name: Publish test report
+        uses: peaceiris/actions-gh-pages@v3
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-history
