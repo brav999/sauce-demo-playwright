@@ -11,30 +11,35 @@ jobs:
     name: Pipeline de testes
     runs-on: ubuntu-latest
     timeout-minutes: 60
-    if: ${{ success() }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+         path: ~/.npm
+         key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+         restore-keys: |
+            ${{ runner.os }}-node-
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 20        
 
       - name: Install dependencies
-        run: npm install
-
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
-
-      - name: Install Allure Playwright
-        run: npm i -D allure-playwright
-
-      - name: Install Allure
-        run: npm install -g allure-commandline
+        run: |
+          npm ci
+          npx playwright install --with-deps
+          npm i -D allure-playwright
+          npm install -g allure-commandline
 
       - name: Run tests
         run: npx playwright test
+
+      - name: Generate Allure Report
+        run: allure generate --clean ./allure-results -o ./allure-report
 
       - name: Generate and Publish Allure Report
         uses: Valiantsin2021/allure-shard-results-publish@1.0.5
@@ -46,7 +51,7 @@ jobs:
           history-directory: 'allure-history'
           gh-pages: 'gh-pages'
           gh-pages-branch: 'gh-pages'
-          report-title: 'My Test Report'
+          report-title: 'Relatório de Testes E2E (Playwright)'
           retention-days: '10'
           publish-to-pages: 'true'
           fail-on-empty-results: 'false'
