@@ -51,8 +51,6 @@ jobs:
           history-directory: 'allure-history'
           gh-pages: 'gh-pages'
           gh-pages-branch: 'gh-pages'
-          report-title: 'Relatório de Testes E2E (Playwright)'
           retention-days: '10'
           publish-to-pages: 'true'
           fail-on-empty-results: 'false'
-          add-env: 'true'
