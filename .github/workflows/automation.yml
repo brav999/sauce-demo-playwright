@@ -36,8 +36,18 @@ jobs:
       - name: Run tests
         run: npx playwright test
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+      - name: Generate and Publish Allure Report
+        uses: Valiantsin2021/allure-shard-results-publish@1.0.5
         with:
-          name: allure-results
-          path: ./allure-results
+          github-token: ${{ secrets.TOKEN_GITHUB }}
+          results-pattern: 'allure-results-*'
+          results-directory: 'combined-allure-results'
+          report-directory: 'allure-report'
+          history-directory: 'allure-history'
+          gh-pages: 'gh-pages'
+          gh-pages-branch: 'gh-pages'
+          report-title: 'My Test Report'
+          retention-days: '10'
+          publish-to-pages: 'true'
+          fail-on-empty-results: 'false'
+          add-env: 'true'
