@@ -3,8 +3,6 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/brav999/sauce-demo-playwright?style=for-the-badge)
 ![GitHub language count](https://img.shields.io/github/languages/count/brav999/sauce-demo-playwright?style=for-the-badge)
 ![GitHub forks](https://img.shields.io/github/forks/brav999/sauce-demo-playwright?style=for-the-badge)
-![Bitbucket open issues](https://img.shields.io/bitbucket/issues/brav999/sauce-demo-playwright?style=for-the-badge)
-![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr-raw/brav999/sauce-demo-playwright?style=for-the-badge)
 
 <img src="https://testingwithrenata.com/wp-content/uploads/2023/03/playwright-logo.png" alt="Logo playwright">
 
